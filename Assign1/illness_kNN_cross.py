@@ -29,7 +29,7 @@ for k in k_range:
     # run KNeighborsClassifier with k neighbours
     # add metric = 'manhattan' for manhattan distance
     # add weights = 'distance' for distance weighted
-    knn = KNeighborsClassifier(n_neighbors=k, weights = 'distance', metric = 'manhattan')
+    knn = KNeighborsClassifier(n_neighbors=k)
     # obtain cross_val_score for KNeighborsClassifier with k neighbours
     scores = cross_val_score(knn, X, y, cv=10, scoring='accuracy')
     # append mean of scores for k neighbors to k_scores list
