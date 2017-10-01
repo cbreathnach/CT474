@@ -1,0 +1,31 @@
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+
+from sklearn import metrics
+from sklearn.naive_bayes import GaussianNB
+from sklearn.model_selection import train_test_split
+
+# import CSV using pandas
+df = pd.read_csv('illness_data.txt',sep = ',')
+
+# convert into numpy array, X = features, y = label
+X = np.array(df.drop(['test_result'],1))
+y = np.array(df['test_result'])
+
+# split the data for testing and train
+# randomly splits the data so variance in results is expected
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
+
+# test with Naive Bayes
+nb = GaussianNB()
+
+nb.fit(X_train, y_train)
+y_pred = nb.predict(X_test)
+
+print('Naive Bayes classifier on the the illness dataset')
+print('Accuarcy score:',metrics.accuracy_score(y_test, y_pred))
+
+confusion = metrics.confusion_matrix(y_test, y_pred)
+print('Confusion matrix:')
+print(confusion)
